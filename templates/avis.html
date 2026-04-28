@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Avis{% endblock %}
+
+{% block content %}
+
+<!-- 🔥 HERO -->
+<section class="avis-hero d-flex align-items-center text-white text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold"><br>Avis de nos clients</h1>
+        <p class="lead">Découvrez ce que nos clients disent de nous</p>
+    </div>
+</section>
+
+<!-- ⭐ LISTE DES AVIS -->
+<section class="container my-5">
+
+    <div class="row">
+
+         
+        <div class="col-md-4 mb-4">
+
+            <div class="avis-card">
+
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avis-img">
+                    <div class="ms-3">
+                        <h6>Client</h6>
+                       <div class="text-warning">
+                         {% for i in "12345"|slice:":review.rating" %}
+                             ⭐
+                         {% endfor %}
+                       </div>
+                    </div>
+                </div>
+
+                <p class="text-muted">
+                    "{{ review.comment }}"
+                </p>
+
+            </div>
+
+        </div>
+     
+
+    </div>
+
+</section>
+
+<!-- ✍️ AJOUTER AVIS -->
+<section class="bg-light py-5">
+
+    <div class="container">
+
+        <h3 class="text-center mb-4">Donnez votre avis</h3>
+
+        <div method="post" class="col-md-6 mx-auto">
+            <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label>Note</label>
+                <select class="form-control" name="rating">
+                    <option>5</option>
+                    <option>4</option>
+                    <option>3</option>
+                    <option>2</option>
+                    <option>1</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Commentaire</label>
+                <textarea class="form-control" name="comment" rows="4"></textarea>
+            </div>
+
+            <button class="btn btn-dark w-100">Envoyer</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

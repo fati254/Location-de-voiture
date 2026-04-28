@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+<!-- 🔥 HERO SECTION -->
+<section class="hero d-flex align-items-center text-white">
+
+    <div class="container text-center">
+
+        <h1 class="display-4 fw-bold text-primary"><br>Louez votre voiture idéale</h1>
+        <p class="lead">Des voitures premium à prix compétitifs</p>
+
+        <!-- FORM RECHERCHE -->
+        <div class="search-box mt-4 p-4">
+
+            <form class="row g-3">
+
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Ville">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="date" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <input type="date" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <button class="btn btn-dark w-100">Rechercher</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- 🚗 SECTION VOITURES -->
+<section class="container my-5">
+
+    <h2 class="text-center mb-4">Nos voitures populaires</h2>
+
+    <div class="row">
+
+        {% for car in cars|slice:":3" %}
+        <div class="col-md-4 mb-4">
+
+            <div class="card car-card">
+
+                <img src="{{ car.image.url }}" class="card-img-top">
+
+                <div class="card-body text-center">
+
+                    <h5>{{ car.marque }} {{ car.modele }}</h5>
+
+                    <p class="text-muted">{{ car.prix_par_jour }} DH / jour</p>
+
+                    <a href="#" class="btn btn-dark">Réserver</a>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- ⭐ SECTION SERVICES -->
+<section class="bg-light py-5">
+
+    <div class="container text-center">
+
+        <h2>Pourquoi nous choisir ?</h2>
+
+        <div class="row mt-4">
+
+            <div class="col-md-4">
+                <h5>🚗 Large choix</h5>
+                <p>Voitures économiques et luxe</p>
+            </div>
+
+            <div class="col-md-4">
+                <h5>💰 Meilleurs prix</h5>
+                <p>Prix compétitifs toute l'année</p>
+            </div>
+
+            <div class="col-md-4">
+                <h5>⚡ Réservation rapide</h5>
+                <p>Processus simple et rapide</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- 🧾 SECTION CTA -->
+<section class="cta text-center text-white">
+
+    <div class="container">
+
+        <h2>Prêt à réserver votre voiture ?</h2>
+        <a href="{% url 'cars_list' %}" class="btn btn-light mt-3">Voir les voitures</a>
+
+    </div>
+
+</section>
+
+{% endblock %}

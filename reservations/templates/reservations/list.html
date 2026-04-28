@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Choisissez votre voiture</h2>
+
+    <div class="row">
+
+        {% for car in cars %}
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow h-100">
+
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x200" class="card-img-top">
+                {% endif %}
+
+                <div class="card-body text-center">
+                    <h5>{{ car.marque }} {{ car.modele }}</h5>
+                    <p>{{ car.prix_par_jour }} DH / jour</p>
+                    <p>{{ car.nb_places }} places</p>
+                    <p>{{ car.transmission }}</p>
+
+                    <a href="#" class="btn btn-dark w-100">Réserver</a>
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
