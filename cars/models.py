@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Car(models.Model):
@@ -7,14 +8,19 @@ class Car(models.Model):
     prix_par_jour = models.FloatField()
     nb_places = models.IntegerField(null=True, blank=True)
     transmission = models.CharField(max_length=50)
+    carburant = models.CharField(max_length=50, default="Essence")
+    categorie = models.CharField(max_length=50, default="SUV")
+    disponible = models.BooleanField(default=True) 
+
     image = models.ImageField(upload_to='cars/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.marque} {self.modele}"
     
 
+
 class Review(models.Model):
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField()
     rating = models.IntegerField()
 

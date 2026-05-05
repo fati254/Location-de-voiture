@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container text-center my-5">
+
+    <h2>✔ Réservation confirmée !</h2>
+
+    <p>Votre voiture a été réservée avec succès.</p>
+
+    <a href="{% url 'reservation_list' %}" class="btn btn-dark">
+        Voir mes réservations
+    </a>
+
+</div>
+
+{% endblock %}

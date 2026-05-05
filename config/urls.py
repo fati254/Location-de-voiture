@@ -23,7 +23,7 @@ from cars.views import home , contact, propos , avis
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('cars', include('cars.urls')), ##mon page d'acceuil
+    path('cars/', include('cars.urls')), ##mon page d'acceuil
     
     path('reservations/',include('reservations.urls')),
     path('users/', include('users.urls')),

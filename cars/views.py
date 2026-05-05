@@ -3,6 +3,7 @@ from .models import Car , Review
 from django.views.generic import ListView 
 from django.shortcuts import render , get_object_or_404
 
+#filtre
 class CarListView(ListView):
      model = Car  ##modele utilise 
      template_name = 'cars/cars_list.html'
@@ -36,27 +37,29 @@ def avis(request):
       return render(request, 'avis.html', {'reviews': reviews})
 
 def cars_list(request):
-     cars = Car.objects.all()
+    print("GET DATA =", request.GET)
+    
+    cars = Car.objects.all()
 
-     # 🔍 FILTRES
-     budget = request.GET.get('budget')
-     places = request.GET.get('places')
+    budget = request.GET.get('budget')
+    places = request.GET.get('places')
+    marque = request.GET.get('marque')
+    categorie = request.GET.get('categorie')
+    disponible = request.GET.get('disponible')
 
-     if budget:
+    if budget:
         cars = cars.filter(prix_par_jour__lte=budget)
 
-     if places:
+    if places:
         cars = cars.filter(nb_places__gte=places)
 
-        return render(request, 'cars/cars_list.html', {'cars': cars})
+    if marque:
+        cars = cars.filter(marque__icontains=marque)
 
-def car_detail(request, id):
-    car = get_object_or_404(Car, id=id)
+    if categorie:
+        cars = cars.filter(categorie__icontains=categorie)
 
-     # 🔥 RECOMMANDATION SIMPLE
-    recommended = Car.objects.filter(categorie=car.categorie).exclude(id=car.id)[:3]
+    if disponible == "on":
+        cars = cars.filter(disponible=True)
 
-    return render(request, 'cars/car_detail.html', {
-        'car': car,
-        'recommended': recommended
-     })
+    return render(request, 'cars/cars_list.html', {'cars': cars})

@@ -1,40 +1,50 @@
 {% extends 'base.html' %}
 
-{% block title %}Réservations{% endblock %}
+{% block title %}Mes Réservations{% endblock %}
 
 {% block content %}
 
 <div class="container my-5">
-    <h2 class="text-center mb-4">Choisissez votre voiture</h2>
+
+    <h2 class="text-center mb-4">Mes Réservations</h2>
 
     <div class="row">
 
-        {% for car in cars %}
+        {% for r in reservations %}
+
         <div class="col-md-4 mb-4">
 
             <div class="card shadow h-100">
 
-                {% if car.image %}
-                    <img src="{{ car.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
-                {% else %}
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top">
+                {% if r.car.image %}
+                    <img src="{{ r.car.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
                 {% endif %}
 
                 <div class="card-body text-center">
-                    <h5>{{ car.marque }} {{ car.modele }}</h5>
-                    <p>{{ car.prix_par_jour }} DH / jour</p>
-                    <p>{{ car.nb_places }} places</p>
-                    <p>{{ car.transmission }}</p>
 
-                    <a href="#" class="btn btn-dark w-100">Réserver</a>
+                    <h5>{{ r.car.marque }} {{ r.car.modele }}</h5>
+
+                    <p>💰 {{ r.car.prix_par_jour }} DH / jour</p>
+
+                    <p>📅 Début : {{ r.date_debut }}</p>
+                    <p>📅 Fin : {{ r.date_fin }}</p>
+
                 </div>
 
             </div>
 
         </div>
+
+        {% empty %}
+
+        <div class="text-center">
+            <p>Aucune réservation pour le moment.</p>
+        </div>
+
         {% endfor %}
 
     </div>
+
 </div>
 
 {% endblock %}

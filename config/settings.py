@@ -135,3 +135,4 @@ LOGOUT_REDIRECT_URL = '/login/'
 ###pouuur les image de dossier media 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+LOGIN_URL = '/login/' 

@@ -1,0 +1,22 @@
+.hero {
+    height: 100vh;
+    background: url("/static/images/car.jpg") center/cover;
+}
+
+.car-card {
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.car-card:hover {
+    transform: scale(1.05);
+}
+
+.form-range {
+    accent-color: black; /* couleur du slider */
+}
+
+.filter-box {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
