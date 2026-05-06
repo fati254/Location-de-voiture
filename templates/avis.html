@@ -8,8 +8,13 @@
 <!-- 🔥 HERO -->
 <section class="avis-hero d-flex align-items-center text-white text-center">
     <div class="container">
-        <h1 class="display-4 fw-bold"><br>Avis de nos clients</h1>
-        <p class="lead">Découvrez ce que nos clients disent de nous</p>
+
+        <h1 class="fw-bold">Avis de nos clients</h1>
+
+        <p class="text-light opacity-75">
+            Expériences réelles de nos utilisateurs AutoLux
+        </p>
+
     </div>
 </section>
 
@@ -18,64 +23,84 @@
 
     <div class="row">
 
-         
+        {% for review in reviews %}
+
         <div class="col-md-4 mb-4">
 
-            <div class="avis-card">
+            <div class="p-4 rounded shadow-sm avis-card h-100">
 
+                <!-- USER -->
                 <div class="d-flex align-items-center mb-3">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avis-img">
+
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                         class="rounded-circle"
+                         width="55"
+                         height="55">
+
                     <div class="ms-3">
-                        <h6>Client</h6>
-                       <div class="text-warning">
-                         {% for i in "12345"|slice:":review.rating" %}
-                             ⭐
-                         {% endfor %}
-                       </div>
+
+                        <h6 class="mb-0">{{ review.user.username }}</h6>
+
+                        <!-- ⭐ STARS -->
+                        <small class="text-warning">
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                    ⭐
+                                {% endif %}
+                            {% endfor %}
+                        </small>
+
                     </div>
+
                 </div>
 
-                <p class="text-muted">
+                <!-- COMMENT -->
+                <p class="text-muted mb-0">
                     "{{ review.comment }}"
                 </p>
 
             </div>
 
         </div>
-     
+
+        {% endfor %}
 
     </div>
 
 </section>
 
 <!-- ✍️ AJOUTER AVIS -->
-<section class="bg-light py-5">
+<section class="py-5 bg-light">
 
     <div class="container">
 
-        <h3 class="text-center mb-4">Donnez votre avis</h3>
+        <h3 class="text-center mb-4 fw-bold">Donnez votre avis</h3>
 
-        <div method="post" class="col-md-6 mx-auto">
-            <form method="post">
+        <form method="post" class="col-md-6 mx-auto p-4 bg-white rounded shadow-sm">
+
             {% csrf_token %}
 
+            <!-- NOTE -->
             <div class="mb-3">
-                <label>Note</label>
-                <select class="form-control" name="rating">
-                    <option>5</option>
-                    <option>4</option>
-                    <option>3</option>
-                    <option>2</option>
-                    <option>1</option>
+                <label class="form-label">Note</label>
+                <select class="form-select" name="rating">
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="1">⭐</option>
                 </select>
             </div>
 
+            <!-- COMMENTAIRE -->
             <div class="mb-3">
-                <label>Commentaire</label>
+                <label class="form-label">Commentaire</label>
                 <textarea class="form-control" name="comment" rows="4"></textarea>
             </div>
 
-            <button class="btn btn-dark w-100">Envoyer</button>
+            <button class="btn btn-dark w-100">
+                Envoyer
+            </button>
 
         </form>
 

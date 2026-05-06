@@ -1,22 +1,161 @@
+/* HERO */
 .hero {
     height: 100vh;
-    background: url("/static/images/car.jpg") center/cover;
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url("/static/images/car.jpg") center/cover no-repeat;
 }
 
+/* CARDS VOITURES */
 .car-card {
     border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    transition: 0.3s;
+}
+
+.car-card img {
+    height: 200px;
+    object-fit: cover;
     transition: 0.3s;
 }
 
 .car-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.car-card:hover img {
     transform: scale(1.05);
 }
 
-.form-range {
-    accent-color: black; /* couleur du slider */
-}
-
+/* FILTRE */
 .filter-box {
     background: #f8f9fa;
     border-radius: 10px;
 }
+
+.form-range {
+    accent-color: black;
+}
+
+/* SERVICES */
+.service-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.service-card:hover {
+    background: black;
+    color: white;
+    transform: translateY(-5px);
+}
+
+.service-card h4 {
+    font-weight: bold;
+}
+
+.service-card:hover p {
+    color: #ddd;
+}
+
+.custom-navbar {
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+    z-index: 9999;
+}
+
+/* scroll effect */
+.custom-navbar.scrolled {
+    background: #0f172a !important;
+}
+
+/* texte blanc forcé */
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* hover */
+.custom-navbar .nav-link:hover {
+    color: #38bdf8 !important;
+}
+
+/* dropdown fix */
+.custom-navbar .dropdown-menu {
+    background: #0f172a;
+}
+
+.custom-navbar .dropdown-item {
+    color: white;
+}
+
+.custom-navbar .dropdown-item:hover {
+    background: #1e293b;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+ 
+body {
+    background: #f3f4f6;
+}
+
+/* 🔥 SERVICE BOX PRO */
+.service-box {
+    background: #ffffff;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+    padding: 25px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+/* ✅ HOVER = CADRE ACTIF */
+.service-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    border: 2px solid #0f172a; /* 👈 effet actif */
+    background: #f9fafb;       /* 👈 léger changement */
+}
+
+/* icône */
+.service-box .icon {
+    font-size: 40px;
+    transition: 0.3s;
+}
+
+/* animation icône */
+.service-box:hover .icon {
+    transform: scale(1.15);
+}
+
+/* bouton (reste NORMAL) */
+.service-box .btn {
+    border-radius: 8px;
+}
+
+/* ❌ on enlève effet bouton */
+.service-box:hover .btn {
+    background: transparent;
+    color: inherit;
+    border-color: #000;
+}
+
+/* titre */
+.service-box h5 {
+    transition: 0.3s;
+}
+
+/* petit effet texte */
+.service-box:hover h5 {
+    color: #0f172a;
+}
+

@@ -2,7 +2,8 @@
 from .models import Car , Review  
 from django.views.generic import ListView 
 from django.shortcuts import render , get_object_or_404
-
+from reservations.models import Reservation
+from datetime import datetime
 #filtre
 class CarListView(ListView):
      model = Car  ##modele utilise 
@@ -36,9 +37,10 @@ def avis(request):
 
       return render(request, 'avis.html', {'reviews': reviews})
 
+
 def cars_list(request):
     print("GET DATA =", request.GET)
-    
+
     cars = Car.objects.all()
 
     budget = request.GET.get('budget')
@@ -46,6 +48,10 @@ def cars_list(request):
     marque = request.GET.get('marque')
     categorie = request.GET.get('categorie')
     disponible = request.GET.get('disponible')
+    ville = request.GET.get('ville')
+
+    date_debut = request.GET.get('date_debut')
+    date_fin = request.GET.get('date_fin')
 
     if budget:
         cars = cars.filter(prix_par_jour__lte=budget)
@@ -59,7 +65,23 @@ def cars_list(request):
     if categorie:
         cars = cars.filter(categorie__icontains=categorie)
 
+    if ville:
+        cars = cars.filter(ville__icontains=ville)
+
     if disponible == "on":
         cars = cars.filter(disponible=True)
+
+    if date_debut and date_fin:
+        try:
+            date_debut = datetime.strptime(date_debut, "%Y-%m-%d").date()
+            date_fin = datetime.strptime(date_fin, "%Y-%m-%d").date()
+
+            cars = cars.exclude(
+                reservations__date_debut__lte=date_fin,
+                reservations__date_fin__gte=date_debut
+            )
+
+        except:
+            print("Erreur format date")
 
     return render(request, 'cars/cars_list.html', {'cars': cars})

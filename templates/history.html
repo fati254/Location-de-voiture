@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Historique{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+
+    <!-- 🔥 TITRE -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Historique complet</h2>
+        <p class="text-muted">Locations + Paiements + Pénalités</p>
+    </div>
+
+    <!-- 📅 LOCATIONS -->
+    <h4 class="mb-3"> Locations</h4>
+
+    <table class="table table-hover text-center mb-5">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Voiture</th>
+                <th>Date fin</th>
+                <th>Retard</th>
+                <th>Pénalité</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in data %}
+            <tr>
+
+                <td>
+                    {{ item.reservation.car.marque }}
+                    {{ item.reservation.car.modele }}
+                </td>
+
+                <td>{{ item.reservation.date_fin }}</td>
+
+                <td>
+                    {% if item.delay_days > 0 %}
+                        <span class="text-danger">{{ item.delay_days }} jours</span>
+                    {% else %}
+                        0
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if item.penalty > 0 %}
+                        <strong class="text-danger">{{ item.penalty }} DH</strong>
+                    {% else %}
+                        0 DH
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <!-- 💳 PAIEMENTS -->
+    <h4 class="mb-3"> Paiements</h4>
+
+    <table class="table table-hover text-center">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Voiture</th>
+                <th>Montant</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for p in payments %}
+            <tr>
+
+                <td>
+                    {{ p.reservation.car.marque }}
+                    {{ p.reservation.car.modele }}
+                </td>
+
+                <td>{{ p.amount }} DH</td>
+
+                <td>
+                    {% if p.status == "paid" %}
+                        <span class="badge bg-success">Payé</span>
+                    {% elif p.status == "pending" %}
+                        <span class="badge bg-warning">En attente</span>
+                    {% else %}
+                        <span class="badge bg-danger">Annulé</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

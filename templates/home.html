@@ -53,25 +53,31 @@
     <div class="row">
 
         {% for car in cars|slice:":3" %}
-        <div class="col-md-4 mb-4">
+     <div class="col-md-4 mb-4">
 
-            <div class="card car-card">
+      <div class="card car-card">
 
-                <img src="{{ car.image.url }}" class="card-img-top">
+        <!-- IMAGE -->
+        {% if car.image %}
+            <img src="{{ car.image.url }}" class="card-img-top">
+        {% endif %}
 
-                <div class="card-body text-center">
+        <!-- CONTENU -->
+        <div class="card-body text-center">
 
-                    <h5>{{ car.marque }} {{ car.modele }}</h5>
+            <h5>{{ car.marque }} {{ car.modele }}</h5>
 
-                    <p class="text-muted">{{ car.prix_par_jour }} DH / jour</p>
+            <p class="text-muted">{{ car.prix_par_jour }} DH / jour</p>
 
-                    <a href="#" class="btn btn-dark">Réserver</a>
-
-                </div>
-
-            </div>
+            <a href="{% url 'create_reservation' car.id %}" class="btn btn-dark">
+                Réserver
+            </a>
 
         </div>
+
+      </div>
+
+     </div>
         {% endfor %}
 
     </div>
@@ -79,28 +85,79 @@
 </section>
 
 
-<!-- ⭐ SECTION SERVICES -->
-<section class="bg-light py-5">
+<!-- ⭐ VALEURS STYLE SERVICE-BOX -->
+<section class="py-5">
 
     <div class="container text-center">
 
-        <h2>Pourquoi nous choisir ?</h2>
+        <h2 class="fw-bold mb-5">Nos valeurs</h2>
 
-        <div class="row mt-4">
+        <div class="row g-4">
 
+            <!-- QUALITÉ -->
             <div class="col-md-4">
-                <h5>🚗 Large choix</h5>
-                <p>Voitures économiques et luxe</p>
+                <a href="{% url 'cars_list' %}" class="text-decoration-none text-dark">
+
+                    <div class="service-box h-100">
+
+                        <div class="icon"></div>
+                        <h5 class="mt-3 fw-bold">Qualité</h5>
+
+                        <p class="text-muted">
+                            Véhicules propres, récents et contrôlés.
+                        </p>
+
+                        <span class="btn btn-outline-dark btn-sm mt-2">
+                            Voir collection
+                        </span>
+
+                    </div>
+
+                </a>
             </div>
 
+            <!-- RÉSERVATION -->
             <div class="col-md-4">
-                <h5>💰 Meilleurs prix</h5>
-                <p>Prix compétitifs toute l'année</p>
+                <a href="{% url 'cars_list' %}" class="text-decoration-none text-dark">
+
+                    <div class="service-box h-100">
+
+                        <div class="icon"></div>
+                        <h5 class="mt-3 fw-bold">Réservation</h5>
+
+                        <p class="text-muted">
+                            Processus simple en quelques clics.
+                        </p>
+
+                        <span class="btn btn-outline-dark btn-sm mt-2">
+                            Réserver
+                        </span>
+
+                    </div>
+
+                </a>
             </div>
 
+            <!-- PRIX -->
             <div class="col-md-4">
-                <h5>⚡ Réservation rapide</h5>
-                <p>Processus simple et rapide</p>
+                <a href="{% url 'cars_list' %}" class="text-decoration-none text-dark">
+
+                    <div class="service-box h-100">
+
+                        <div class="icon"></div>
+                        <h5 class="mt-3 fw-bold">Prix</h5>
+
+                        <p class="text-muted">
+                            Tarifs transparents et compétitifs.
+                        </p>
+
+                        <span class="btn btn-outline-dark btn-sm mt-2">
+                            Voir prix
+                        </span>
+
+                    </div>
+
+                </a>
             </div>
 
         </div>
@@ -108,14 +165,12 @@
     </div>
 
 </section>
-
-
 <!-- 🧾 SECTION CTA -->
 <section class="cta text-center text-white">
 
     <div class="container">
 
-        <h2>Prêt à réserver votre voiture ?</h2>
+        <h2 class="display-8 fw-bold text-white"> Prêt à réserver votre voiture ?</h2>
         <a href="{% url 'cars_list' %}" class="btn btn-light mt-3">Voir les voitures</a>
 
     </div>

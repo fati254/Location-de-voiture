@@ -24,10 +24,15 @@
 
                     <h5>{{ r.car.marque }} {{ r.car.modele }}</h5>
 
-                    <p>💰 {{ r.car.prix_par_jour }} DH / jour</p>
+                     <p>💰 {{ r.car.prix_par_jour }} DH / jour</p>
 
-                    <p>📅 Début : {{ r.date_debut }}</p>
+                     <p>📅 Début : {{ r.date_debut }}</p>
                     <p>📅 Fin : {{ r.date_fin }}</p>
+
+                      <!-- BOUTON CONTRAT ICI -->
+                     <a href="{% url 'generate_contract' r.id %}" class="btn btn-success w-100 mt-2">
+                        Télécharger contrat
+                     </a>
 
                 </div>
 

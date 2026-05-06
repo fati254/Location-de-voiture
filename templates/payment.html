@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block title %}Paiement{% endblock %}
+
+{% block content %}
+
+<style>
+.payment-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.payment-card {
+    width: 420px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.box {
+    background: rgba(255,255,255,0.1);
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.status-paid { color: #22c55e; font-weight: bold; }
+.status-pending { color: #f59e0b; font-weight: bold; }
+.status-cancelled { color: #ef4444; font-weight: bold; }
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pay { background: #22c55e; color: white; }
+.cancel { background: #ef4444; color: white; }
+
+.contract-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #3b82f6;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+}
+</style>
+
+<div class="payment-page">
+
+    <div class="payment-card">
+
+        <div class="title">Paiement Réservation</div>
+
+        <div class="box">
+             {{ reservation.car.marque }} {{ reservation.car.modele }}
+        </div>
+
+        <div class="box">
+             {{ payment.amount }} DH
+        </div>
+
+        <div class="box">
+            Statut :
+
+            {% if payment.status == "paid" %}
+                <span class="status-paid">PAYÉ</span>
+            {% elif payment.status == "pending" %}
+                <span class="status-pending">EN ATTENTE</span>
+            {% else %}
+                <span class="status-cancelled">ANNULÉ</span>
+            {% endif %}
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if payment.status != "paid" %}
+                <button class="btn pay" name="action" value="pay">
+                    Payer
+                </button>
+            {% endif %}
+
+            {% if payment.status != "paid" %}
+                <button class="btn cancel" name="action" value="cancel">
+                    Annuler
+                </button>
+            {% endif %}
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

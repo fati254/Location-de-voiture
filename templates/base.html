@@ -1,67 +1,153 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-
 <meta charset="UTF-8">
 <title>{% block title %}{% endblock %}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}"> 
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
 <link rel="stylesheet" href="{% static 'base/fontawesome/css/all.min.css' %}">
+
+<style>
+
+/* ================= NAVBAR ================= */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f6f8;
+    padding-top: 80px; /* espace sous navbar */
+}
+
+.custom-navbar {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+    z-index: 9999;
+    padding: 12px 0;
+}
+
+.custom-navbar.scrolled {
+    background: #000;
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.custom-navbar .nav-link:hover {
+    color: #38bdf8 !important;
+}
+
+/* dropdown */
+.dropdown-menu {
+    background: #111;
+}
+
+.dropdown-item {
+    color: #fff;
+}
+
+.dropdown-item:hover {
+    background: #222;
+}
+
+/* ================= TITRE SECTION ================= */
+
+.section-header {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.section-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #111;
+}
+
+.section-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}"><i class="fa-solid fa-car"></i> AutoLux</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+
+    <a class="navbar-brand" href="{% url 'home' %}">
+        <i class="fa-solid fa-car"></i> AutoLux
+    </a>
+
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
+
+    <div class="collapse navbar-collapse" id="nav">
+
       <ul class="navbar-nav mx-auto">
+
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'home' %}">Accueil
-            <span class="visually-hidden">(current)</span>
-          </a>
+            <a class="nav-link" href="{% url 'home' %}">Accueil</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'cars_list' %}">Collection</a>
+            <a class="nav-link" href="{% url 'cars_list' %}">Collection</a>
         </li>
-       
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'propos' %}">A propos</a>
+            <a class="nav-link" href="{% url 'propos' %}">À propos</a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'avis' %}">Avis</a>
+        </li>
+
          <li class="nav-item">
-          <a class="nav-link" href="{% url 'contact' %}">Contactez-nous</a>
+        <a class="nav-link" href="{% url 'history' %}">Historique</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'avis' %}">Avis</a>
-        </li>
+
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profil</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{% url 'reservation_list' %}">Mes Réservations</a>
-            <a class="dropdown-item" href="{% url 'reservation_list' %}">Paiement</a>
-            <a class="dropdown-item" href="#">Notifications</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Déconnexion</a>
-          </div>
+
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                Profil
+            </a>
+
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'reservation_list' %}">Mes réservations</a>
+                <a class="dropdown-item" href="{% url 'reservation_list' %}">Paiement</a>
+                <a class="dropdown-item" href="#">Notifications</a>
+            </div>
+
         </li>
+
       </ul>
 
-
-      
-     <!--
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>   
-      --> 
     </div>
   </div>
 </nav>
+
 {% block content %}{% endblock %}
+
 <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+
+<script>
+window.addEventListener("scroll", function () {
+    document.querySelector(".custom-navbar")
+    .classList.toggle("scrolled", window.scrollY > 50);
+});
+</script>
+
 </body>
 </html>

@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Paiement réussi{% endblock %}
+
+{% block content %}
+
+<style>
+/* 🌆 BACKGROUND IMAGE VOITURE */
+.success-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: url("https://images.unsplash.com/photo-1503376780353-7e6692767b70") center/cover no-repeat;
+}
+
+/* 🔳 OVERLAY SOMBRE */
+.success-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.75);
+}
+
+/* 📦 CADRE GRIS GLASS */
+.success-card {
+    position: relative;
+    width: 420px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    padding: 25px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* ✔ ICON */
+.check {
+    width: 60px;
+    height: 60px;
+    background: #22c55e;
+    border-radius: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 12px;
+    box-shadow: 0 0 20px rgba(34,197,94,0.4);
+}
+
+/* TITRE */
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-bottom: 18px;
+}
+
+/* INFOS */
+.info {
+    background: rgba(255,255,255,0.08);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* BUTTONS */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-contract {
+    background: #22c55e;
+    color: white;
+}
+
+.btn-home {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+    transition: 0.2s;
+}
+</style>
+
+<div class="success-wrapper">
+
+    <div class="success-card">
+
+        <div class="check">✔</div>
+
+        <div class="title">Paiement confirmé</div>
+        <div class="subtitle">Votre réservation est validée</div>
+
+        <div class="info">
+             {{ reservation.car.marque }} {{ reservation.car.modele }}
+        </div>
+
+        <div class="info">
+             {{ payment.amount }} DH
+        </div>
+
+        <div class="info">
+             <b style="color:#22c55e;">PAYÉ</b>
+        </div>
+
+        <a href="{% url 'generate_contract' reservation.id %}" class="btn btn-contract">
+             Télécharger contrat AutoLux
+        </a>
+
+        <a href="{% url 'cars_list' %}" class="btn btn-home">
+             Retour à la collection
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

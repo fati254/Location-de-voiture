@@ -5,61 +5,115 @@
 
 {% block content %}
 
-<!-- 🔥 HERO -->
-<section class="about-hero d-flex align-items-center text-white text-center">
+<!-- 🔥 HERO SIMPLE -->
+<section class="about-hero d-flex align-items-center text-white text-center"
+         style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+         url('https://images.unsplash.com/photo-1493238792000-8113da705763');
+         background-size: cover;
+         background-position: center;
+         height: 60vh;">
+
     <div class="container">
-        <h1 class="display-4 fw-bold"><br>À propos de AutoLux</h1>
-        <p class="lead">L'excellence dans la location de voitures</p>
+        <h1 class="fw-bold">À propos de AutoLux</h1>
+        <p class="text-light">L’excellence dans la location de voitures</p>
     </div>
+
 </section>
 
-<!-- 🧠 NOTRE HISTOIRE -->
+<!-- 🧠 HISTOIRE -->
 <section class="container my-5">
 
-    <div class="row align-items-center">
+    <div class="row align-items-center g-4">
 
         <div class="col-md-6">
-            <h2>Notre histoire</h2>
-            <p>
+            <h2 class="fw-bold">Notre histoire</h2>
+            <p class="text-muted">
                 AutoLux est une plateforme de location de voitures premium basée à Casablanca.
-                Nous offrons une large gamme de véhicules adaptés à tous les besoins, du luxe à l’économique.
+                Nous proposons des véhicules fiables, adaptés à tous les besoins.
             </p>
-            <p>
-                Notre mission est de rendre la location simple, rapide et accessible à tous,
-                avec un service client exceptionnel.
+
+            <p class="text-muted">
+                Notre mission est de rendre la location simple, rapide et accessible,
+                avec une expérience utilisateur moderne.
             </p>
         </div>
 
         <div class="col-md-6">
-            <img src="https://images.unsplash.com/photo-1493238792000-8113da705763" class="img-fluid rounded shadow">
+            <img src="https://images.unsplash.com/photo-1493238792000-8113da705763"
+                 class="img-fluid rounded shadow">
         </div>
 
     </div>
 
 </section>
 
-<!-- ⭐ NOS VALEURS -->
-<section class="bg-dark text-white py-5">
+<!-- ⭐ VALEURS PRO -->
+<section class="py-5 bg-light">
 
     <div class="container text-center">
 
-        <h2 class="mb-4">Nos valeurs</h2>
+        <h2 class="fw-bold mb-5">Nos valeurs</h2>
 
-        <div class="row">
+        <div class="row g-4">
 
+            <!-- QUALITÉ -->
             <div class="col-md-4">
-                <h5>🚗 Qualité</h5>
-                <p>Des véhicules soigneusement sélectionnés</p>
+                <a href="{% url 'cars_list' %}" class="text-decoration-none text-dark">
+
+                    <div class="p-4 border rounded shadow-sm h-100 value-card">
+
+                        <h4>Qualité</h4>
+                        <p class="text-muted">
+                            Véhicules propres, récents et contrôlés.
+                        </p>
+
+                        <span class="btn btn-outline-dark btn-sm mt-2">
+                            Voir collection
+                        </span>
+
+                    </div>
+
+                </a>
             </div>
 
+            <!-- RÉSERVATION -->
             <div class="col-md-4">
-                <h5>⚡ Rapidité</h5>
-                <p>Réservation simple et rapide</p>
+                <a href="{% url 'cars_list' %}" class="text-decoration-none text-dark">
+
+                    <div class="p-4 border rounded shadow-sm h-100 value-card">
+
+                        <h4> Réservation</h4>
+                        <p class="text-muted">
+                            Processus simple en quelques clics.
+                        </p>
+
+                        <span class="btn btn-outline-dark btn-sm mt-2">
+                            Réserver
+                        </span>
+
+                    </div>
+
+                </a>
             </div>
 
+            <!-- PRIX -->
             <div class="col-md-4">
-                <h5>🤝 Confiance</h5>
-                <p>Un service client fiable et transparent</p>
+                <a href="{% url 'cars_list' %}" class="text-decoration-none text-dark">
+
+                    <div class="p-4 border rounded shadow-sm h-100 value-card">
+
+                        <h4>Prix</h4>
+                        <p class="text-muted">
+                            Tarifs transparents et compétitifs.
+                        </p>
+
+                        <span class="btn btn-outline-dark btn-sm mt-2">
+                            Voir prix
+                        </span>
+
+                    </div>
+
+                </a>
             </div>
 
         </div>
@@ -71,42 +125,60 @@
 <!-- 👥 ÉQUIPE -->
 <section class="container my-5 text-center">
 
-    <h2 class="mb-4">Notre équipe</h2>
+    <h2 class="fw-bold mb-4">Notre équipe</h2>
 
-    <div class="row">
+    <div class="row g-4">
 
         <div class="col-md-4">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="team-img">
-            <h5 class="mt-3">Fatima</h5>
-            <p>CEO</p>
+            <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                 class="rounded-circle mb-2" width="100">
+            <h5>Fatima</h5>
+            <p class="text-muted">CEO</p>
         </div>
 
         <div class="col-md-4">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="team-img">
-            <h5 class="mt-3">Yassine</h5>
-            <p>Manager</p>
+            <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                 class="rounded-circle mb-2" width="100">
+            <h5>Yassine</h5>
+            <p class="text-muted">Manager</p>
         </div>
 
         <div class="col-md-4">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="team-img">
-            <h5 class="mt-3">Sara</h5>
-            <p>Support Client</p>
+            <img src="https://randomuser.me/api/portraits/women/68.jpg"
+                 class="rounded-circle mb-2" width="100">
+            <h5>Sara</h5>
+            <p class="text-muted">Support</p>
         </div>
 
     </div>
 
 </section>
 
-<!-- 🚀 CTA -->
-<section class="cta text-center text-white">
+<!-- 🚀 CTA SIMPLE -->
+<section class="py-5 text-center bg-dark text-white">
 
     <div class="container">
 
-        <h2>Prêt à réserver votre voiture ?</h2>
-        <a href="{% url 'cars_list' %}" class="btn btn-light mt-3">Voir les voitures</a>
+        <h3 class="fw-bold">Prêt à louer votre voiture ?</h3>
+
+        <a href="{% url 'cars_list' %}" class="btn btn-light mt-3">
+            Voir la collection
+        </a>
 
     </div>
 
 </section>
+
+<style>
+.value-card {
+    transition: 0.3s ease;
+    background: white;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+</style>
 
 {% endblock %}
