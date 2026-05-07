@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Modifier Profil
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow rounded-4">
+
+                <div class="bg-dark text-white p-4 rounded-top-4">
+
+                    <h3 class="fw-bold mb-0">
+
+                        Modifier Mon Profil
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Prénom
+
+                                </label>
+
+                                {{ form.first_name }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Nom
+
+                                </label>
+
+                                {{ form.last_name }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    CIN
+
+                                </label>
+
+                                {{ form.cin }}
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Téléphone
+
+                                </label>
+
+                                {{ form.phone }}
+
+                            </div>
+
+                            <div class="col-12 mb-3">
+
+                                <label class="form-label">
+
+                                    Adresse
+
+                                </label>
+
+                                {{ form.address }}
+
+                            </div>
+
+                            <div class="col-12 mb-4">
+
+                                <label class="form-label">
+
+                                    Permis de conduire
+
+                                </label>
+
+                                {{ form.driver_license }}
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-dark rounded-3 px-4"
+                        >
+
+                            Sauvegarder
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
