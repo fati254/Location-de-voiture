@@ -150,5 +150,13 @@ window.addEventListener("scroll", function () {
 });
 </script>
 
+{% load static %}
+
+{% include 'components/ai_chat.html' %}
+
+<link rel="stylesheet" href="{% static 'css/ai_chat.css' %}">
+
+<script src="{% static 'js/ai_chat.js' %}"></script>
+
 </body>
 </html>

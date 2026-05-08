@@ -1,0 +1,31 @@
+marque,modele,prix_par_jour,nb_places,transmission,carburant,image
+BMW,X5,900,5,Automatique,Diesel,bmw_x5.jpg
+BMW,Serie 3,750,5,Automatique,Essence,bmw_serie3.jpg
+Audi,A4,700,5,Automatique,Essence,audi_a4.jpg
+Audi,Q7,1100,7,Automatique,Diesel,audi_q7.jpg
+Mercedes,C220,850,5,Automatique,Diesel,mercedes_c220.jpg
+Mercedes,GLA,950,5,Automatique,Essence,mercedes_gla.jpg
+Toyota,Yaris,400,5,Manuelle,Essence,toyota_yaris.jpg
+Toyota,Corolla,550,5,Automatique,Essence,toyota_corolla.jpg
+Hyundai,Tucson,800,5,Automatique,Diesel,hyundai_tucson.jpg
+Hyundai,i10,350,4,Manuelle,Essence,hyundai_i10.jpg
+Kia,Sportage,780,5,Automatique,Diesel,kia_sportage.jpg
+Kia,Picanto,320,4,Manuelle,Essence,kia_picanto.jpg
+Tesla,Model 3,1200,5,Automatique,Electrique,tesla_model3.jpg
+Tesla,Model Y,1400,7,Automatique,Electrique,tesla_modely.jpg
+Range Rover,Evoque,1500,5,Automatique,Diesel,range_evoque.jpg
+Dacia,Logan,300,5,Manuelle,Diesel,dacia_logan.jpg
+Dacia,Duster,500,5,Manuelle,Diesel,dacia_duster.jpg
+Renault,Clio,420,5,Manuelle,Essence,renault_clio.jpg
+Renault,Megane,600,5,Automatique,Diesel,renault_megane.jpg
+Peugeot,208,450,5,Manuelle,Essence,peugeot_208.jpg
+Peugeot,3008,780,7,Automatique,Diesel,peugeot_3008.jpg
+Volkswagen,Golf 8,700,5,Automatique,Essence,vw_golf8.jpg
+Volkswagen,Tiguan,950,7,Automatique,Diesel,vw_tiguan.jpg
+Ford,Focus,520,5,Manuelle,Essence,ford_focus.jpg
+Ford,Explorer,1300,7,Automatique,Essence,ford_explorer.jpg
+Chevrolet,Malibu,680,5,Automatique,Essence,chevrolet_malibu.jpg
+Nissan,Qashqai,750,5,Automatique,Diesel,nissan_qashqai.jpg
+Nissan,Micra,340,4,Manuelle,Essence,nissan_micra.jpg
+Porsche,Cayenne,2000,5,Automatique,Essence,porsche_cayenne.jpg
+Ferrari,F8,5000,2,Automatique,Essence,ferrari_f8.jpg
