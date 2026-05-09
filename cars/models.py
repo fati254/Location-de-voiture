@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from datetime import date
 # Create your models here.
 class Car(models.Model):
     marque = models.CharField(max_length=100)
@@ -16,12 +17,22 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.marque} {self.modele}"
-    
 
 
 class Review(models.Model):
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    car = models.ForeignKey(
+        Car,
+        on_delete=models.CASCADE,
+        related_name="reviews"
+    )
+
     comment = models.TextField()
+
     rating = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.user} - {self.car}"
 

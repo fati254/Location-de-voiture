@@ -18,25 +18,27 @@
         <!-- FORM RECHERCHE -->
         <div class="search-box mt-4 p-4">
 
-            <form class="row g-3">
+           <form method="GET" action="{% url 'cars_list' %}" class="row g-3">
 
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Ville">
-                </div>
+    <div class="col-md-3">
+        <input type="text" name="ville" class="form-control" placeholder="Ville">
+    </div>
 
-                <div class="col-md-3">
-                    <input type="date" class="form-control">
-                </div>
+    <div class="col-md-3">
+        <input type="date" name="date_debut" class="form-control">
+    </div>
 
-                <div class="col-md-3">
-                    <input type="date" class="form-control">
-                </div>
+    <div class="col-md-3">
+        <input type="date" name="date_fin" class="form-control">
+    </div>
 
-                <div class="col-md-3">
-                    <button class="btn btn-dark w-100">Rechercher</button>
-                </div>
+    <div class="col-md-3">
+        <button class="btn btn-dark w-100">
+            Recherche
+        </button>
+    </div>
 
-            </form>
+</form>
 
         </div>
 

@@ -6,61 +6,104 @@
 <style>
 .payment-page {
     min-height: 100vh;
+    background: #f5f7fb;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    padding: 20px;
 }
 
+/* CARD */
 .payment-card {
-    width: 420px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
+    width: 450px;
+    background: #ffffff;
+    border-radius: 16px;
     padding: 30px;
-    color: white;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
     text-align: center;
 }
 
+/* TITLE */
 .title {
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 700;
     margin-bottom: 20px;
+    color: #111827;
 }
 
+/* INFO BOX */
 .box {
-    background: rgba(255,255,255,0.1);
+    background: #f9fafb;
     padding: 12px;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #374151;
 }
 
-.status-paid { color: #22c55e; font-weight: bold; }
-.status-pending { color: #f59e0b; font-weight: bold; }
-.status-cancelled { color: #ef4444; font-weight: bold; }
+/* STATUS */
+.status-paid {
+    color: #16a34a;
+    font-weight: 600;
+}
 
+.status-pending {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.status-cancelled {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+/* BUTTON */
 .btn {
     width: 100%;
     padding: 12px;
-    border-radius: 12px;
+    border-radius: 10px;
     border: none;
     margin-top: 10px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
-.pay { background: #22c55e; color: white; }
-.cancel { background: #ef4444; color: white; }
+/* PAY BUTTON */
+.pay {
+    background: #16a34a;
+    color: white;
+}
 
+.pay:hover {
+    background: #15803d;
+}
+
+/* CANCEL BUTTON */
+.cancel {
+    background: #ef4444;
+    color: white;
+}
+
+.cancel:hover {
+    background: #b91c1c;
+}
+
+/* CONTRACT BUTTON */
 .contract-btn {
     display: inline-block;
     margin-top: 15px;
-    background: #3b82f6;
-    padding: 10px;
+    background: #2563eb;
+    padding: 10px 14px;
     border-radius: 10px;
     color: white;
     text-decoration: none;
+    font-weight: 600;
+}
+
+.contract-btn:hover {
+    background: #1d4ed8;
 }
 </style>
 
@@ -80,13 +123,12 @@
 
         <div class="box">
             Statut :
-
             {% if payment.status == "paid" %}
-                <span class="status-paid">PAYÉ</span>
+                <span class="status-paid"> PAYÉ</span>
             {% elif payment.status == "pending" %}
-                <span class="status-pending">EN ATTENTE</span>
+                <span class="status-pending"> EN ATTENTE</span>
             {% else %}
-                <span class="status-cancelled">ANNULÉ</span>
+                <span class="status-cancelled"> ANNULÉ</span>
             {% endif %}
         </div>
 

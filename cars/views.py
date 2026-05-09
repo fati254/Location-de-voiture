@@ -8,7 +8,11 @@ from datetime import datetime
 import json
 import re
 import spacy 
-nlp = spacy.load("fr_core_news_sm")
+
+try:
+    nlp = spacy.load("fr_core_news_sm")
+except:
+    nlp = None
 FAMILY_WORDS = [
     "famille",
     "familiale",
@@ -78,54 +82,87 @@ def avis(request):
       return render(request, 'avis.html', {'reviews': reviews})
 
 
+from django.shortcuts import render
+from datetime import datetime
+from django.shortcuts import render
+from .models import Car
+from reservations.models import Reservation
+from datetime import date
+
+
 def cars_list(request):
-    print("GET DATA =", request.GET)
 
     cars = Car.objects.all()
 
-    budget = request.GET.get('budget')
-    places = request.GET.get('places')
+    # =========================
+    # RECUPERATION GET
+    # =========================
+
     marque = request.GET.get('marque')
+    budget = request.GET.get('budget')
     categorie = request.GET.get('categorie')
-    disponible = request.GET.get('disponible')
-    ville = request.GET.get('ville')
+    sort = request.GET.get('sort')
 
-    date_debut = request.GET.get('date_debut')
-    date_fin = request.GET.get('date_fin')
-
-    if budget:
-        cars = cars.filter(prix_par_jour__lte=budget)
-
-    if places:
-        cars = cars.filter(nb_places__gte=places)
+    # =========================
+    # FILTRE MARQUE
+    # =========================
 
     if marque:
-        cars = cars.filter(marque__icontains=marque)
+        cars = cars.filter(
+            marque__icontains=marque
+        )
+
+    # =========================
+    # FILTRE PRIX
+    # =========================
+
+    if budget and budget.isdigit():
+
+        cars = cars.filter(
+            prix_par_jour__lte=int(budget)
+        )
+
+    # =========================
+    # FILTRE CATEGORIE
+    # =========================
 
     if categorie:
-        cars = cars.filter(categorie__icontains=categorie)
 
-    if ville:
-        cars = cars.filter(ville__icontains=ville)
+        cars = cars.filter(
+            categorie__icontains=categorie
+        )
 
-    if disponible == "on":
-        cars = cars.filter(disponible=True)
+    # =========================
+    # TRI PRIX
+    # =========================
 
-    if date_debut and date_fin:
-        try:
-            date_debut = datetime.strptime(date_debut, "%Y-%m-%d").date()
-            date_fin = datetime.strptime(date_fin, "%Y-%m-%d").date()
+    if sort == "price_asc":
 
-            cars = cars.exclude(
-                reservations__date_debut__lte=date_fin,
-                reservations__date_fin__gte=date_debut
-            )
+        cars = cars.order_by('prix_par_jour')
 
-        except:
-            print("Erreur format date")
+    elif sort == "price_desc":
 
-    return render(request, 'cars/cars_list.html', {'cars': cars})
+        cars = cars.order_by('-prix_par_jour')
 
+    # =========================
+    # DISPONIBILITE
+    # =========================
+
+    today = date.today()
+
+    for car in cars:
+
+        reservation_active = Reservation.objects.filter(
+            car=car,
+            date_debut__lte=today,
+            date_fin__gte=today
+        ).exists()
+
+        car.is_available_now = not reservation_active
+
+    return render(request, 'cars/cars_list.html', {
+        'cars': cars
+    })
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -317,3 +354,6 @@ def ai_chat_search(request):
         'cars': []
 
     })
+
+
+

@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import home, CarListView , contact, propos , avis
 from .views import home, cars_list, contact, propos, avis, ai_chat_search
+
+
 urlpatterns = [
     path('', home, name='home'), #accueil
     path('list/', cars_list, name='cars_list'),#as_view pour les class

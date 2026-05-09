@@ -1,0 +1,44 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.brand-link {
+    background: #111827 !important;
+}
+
+.main-header {
+    background: #0f172a !important;
+}
+
+.sidebar-dark-primary {
+    background: #111827 !important;
+}
+
+.content-wrapper {
+    background: #f8fafc !important;
+}
+
+.card {
+    border-radius: 18px !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.btn-primary {
+    background: #2563eb !important;
+    border: none !important;
+    border-radius: 12px !important;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8 !important;
+}
+
+.login-page {
+    background: linear-gradient(135deg, #0f172a, #1e293b) !important;
+}
+
+.login-box .card {
+    border-radius: 20px !important;
+    overflow: hidden;
+}
+

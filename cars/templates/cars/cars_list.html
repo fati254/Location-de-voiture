@@ -5,86 +5,28 @@
 
 <div class="container py-5">
 
-    <!-- =========================
-         🔥 HEADER PRO
-    ========================== -->
-  <div class="section-header">
-
-    <h2>Nos véhicules disponibles</h2>
-
-    <p>Choisissez et réservez votre voiture en quelques clics</p>
-
-</div>
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+        <h2>Nos véhicules disponibles</h2>
+        <p>Choisissez une voiture et réservez facilement</p>
+    </div>
 
     <!-- =========================
-         🔍 FILTER BAR (NEW STYLE)
+         FILTRES + TRI
     ========================== -->
-    <form method="GET" class="bg-white p-3 rounded shadow-sm mb-4">
+    <form method="GET" class="bg-white shadow-sm p-4 rounded mb-5"> <div class="row g-3"> <!-- RECHERCHE --> <div class="col-md-3"> <input type="text" name="marque" value="{{ request.GET.marque }}" class="form-control" placeholder="Marque ou modèle"> </div> <!-- CATEGORIE --> <div class="col-md-3"> <select name="categorie" class="form-select"> <option value=""> Toutes catégories </option> <option value="Luxe"> Luxe </option> <option value="SUV"> SUV </option> <option value="Sport"> Sport </option> <option value="Citadine"> Citadine </option> </select> </div> <!-- BUDGET --> <div class="col-md-2"> <input type="number" name="budget" value="{{ request.GET.budget }}" class="form-control" placeholder="Budget max"> </div> <!-- TRI --> <div class="col-md-2"> <select name="sort" class="form-select"> <option value=""> Trier par </option> <option value="price_asc"> Prix croissant </option> <option value="price_desc"> Prix décroissant </option> </select> </div> <!-- BTN --> <div class="col-md-2"> <button class="btn btn-dark w-100"> Filtrer </button> </div> </div> </form>
 
-        <div class="row g-2 align-items-end">
-
-            <div class="col-md-4">
-                <input type="text"
-                       name="marque"
-                       class="form-control"
-                       placeholder="Rechercher marque ou modèle">
-            </div>
-
-            <div class="col-md-3">
-
-                <label class="small text-muted">Prix max</label>
-
-                <input type="range"
-                       name="budget"
-                       class="form-range"
-                       min="0"
-                       max="2000"
-                       value="{{ request.GET.budget|default:1000 }}"
-                       oninput="priceValue.innerText = this.value">
-
-                <small>Max : <span id="priceValue">1000</span> DH</small>
-
-            </div>
-
-            <div class="col-md-3">
-                <select name="categorie" class="form-select">
-                    <option value="">Toutes catégories</option>
-                    <option>Luxe</option>
-                    <option>SUV</option>
-                    <option>Sport</option>
-                    <option>Citadine</option>
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <button class="btn btn-dark w-100">
-                    Filtrer
-                </button>
-            </div>
-
-        </div>
-
-    </form>
-
-    <!-- =========================
-         🚗 TRI (VISIBLE + PROPRE)
-    ========================== -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- COUNT -->
+    <div class="d-flex justify-content-between mb-3">
 
         <span class="text-muted">
-            {{ cars|length }} véhicules disponibles
+            {{ cars|length }} véhicules trouvés
         </span>
-
-        <select class="form-select w-auto">
-            <option>Trier par</option>
-            <option>Prix croissant</option>
-            <option>Prix décroissant</option>
-        </select>
 
     </div>
 
     <!-- =========================
-         🚗 CARS GRID
+         CARS GRID
     ========================== -->
     <div class="row g-4">
 
@@ -92,7 +34,7 @@
 
         <div class="col-md-4">
 
-            <div class="card border-0 shadow-sm car-card">
+            <div class="card border-0 shadow-sm car-card position-relative">
 
                 <!-- IMAGE -->
                 {% if car.image %}
@@ -105,10 +47,21 @@
                          style="height:220px; object-fit:cover;">
                 {% endif %}
 
+                <!-- BADGE -->
+                <div class="position-absolute top-0 end-0 m-2">
+
+                    {% if car.reservations.exists %}
+                        <span class="badge bg-danger">Occupée</span>
+                    {% else %}
+                        <span class="badge bg-success">Disponible</span>
+                    {% endif %}
+
+                </div>
+
                 <!-- CONTENT -->
                 <div class="p-3">
 
-                    <h5 class="fw-bold mb-1">
+                    <h5 class="fw-bold">
                         {{ car.marque }} {{ car.modele }}
                     </h5>
 
@@ -116,22 +69,16 @@
                         {{ car.transmission }} • {{ car.carburant }}
                     </small>
 
-                    <div class="d-flex justify-content-between mt-2 text-muted">
-                        <span>{{ car.nb_places }} places</span>
-                        <span>Casablanca</span>
-                        
+                    <div class="mt-2 text-muted">
+                        {{ car.nb_places }} places • {{ car.categorie }}
                     </div>
-                    <p>   {{ car.categorie }}</p>
 
                     <hr>
 
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between">
 
-                        <h5 class="fw-bold mb-0">
-                            {{ car.prix_par_jour }} DH
-                        </h5>
-
-                        <small>/ jour</small>
+                        <strong>{{ car.prix_par_jour }} DH</strong>
+                        <span>/ jour</span>
 
                     </div>
 
@@ -154,21 +101,35 @@
 
 </div>
 
-<!-- =========================
-     🎨 HOVER STYLE
-========================= -->
+<!-- STYLE -->
 <style>
 .car-card {
-    transition: 0.3s ease;
+    transition: 0.3s;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .car-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-
 }
 </style>
 
-
-
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Confirmation réservation{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Confirmer votre réservation</h2>
+        <p class="text-muted">Vérifiez votre choix avant validation</p>
+    </div>
+
+    <!-- CARD VOITURE -->
+    <div class="card shadow-sm mx-auto" style="max-width:500px;">
+
+        {% if car.image %}
+            <img src="{{ car.image.url }}" class="card-img-top">
+        {% endif %}
+
+        <div class="card-body text-center">
+
+            <h4 class="fw-bold">
+                {{ car.marque }} {{ car.modele }}
+            </h4>
+
+            <p class="text-muted">
+                {{ car.prix_par_jour }} DH / jour
+            </p>
+
+            <!-- ACTIONS -->
+            <form method="post">
+                {% csrf_token %}
+
+                <button class="btn btn-success w-100 mb-2">
+                    Confirmer réservation
+                </button>
+
+            </form>
+
+            <!-- 🔙 retour collection -->
+            <a href="{% url 'cars_list' %}" class="btn btn-outline-dark w-100 mb-2">
+                Retour à la collection
+            </a>
+
+            <!-- ❌ annuler -->
+            <a href="{% url 'cars_list' %}" class="btn btn-light w-100">
+                Annuler
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
