@@ -33,7 +33,7 @@ ECONOMY_WORDS = [
 LUXURY_WORDS = [
     "luxe",
     "vip",
-    "premium",
+    "premium", 
     "confort"
 ]
 
