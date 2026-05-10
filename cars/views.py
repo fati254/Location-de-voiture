@@ -8,42 +8,158 @@ from django.contrib.auth.decorators import login_required
 
 import json
 import re
-import spacy 
+import spacy
 
 try:
     nlp = spacy.load("fr_core_news_sm")
 except:
     nlp = None
+
+
+# =========================
+# FAMILLE / GROUPE
+# =========================
 FAMILY_WORDS = [
     "famille",
     "familiale",
     "enfants",
     "voyage",
     "amis",
-    "groupe"
+    "groupe",
+    "parents",
+    "bébé",
+    "vacances",
+    "plusieurs personnes"
 ]
 
+
+# =========================
+# ÉCONOMIQUE
+# =========================
 ECONOMY_WORDS = [
     "pas cher",
     "economique",
     "économique",
     "budget",
-    "petit prix"
+    "petit prix",
+    "faible consommation",
+    "moins cher",
+    "prix bas",
+    "abordable"
 ]
 
+
+# =========================
+# LUXE
+# =========================
 LUXURY_WORDS = [
     "luxe",
     "vip",
-    "premium", 
-    "confort"
+    "premium",
+    "haut de gamme",
+    "confort",
+    "classe",
+    "élégant",
+    "prestige"
 ]
 
+
+# =========================
+# SUV / GRANDES VOITURES
+# =========================
 SUV_WORDS = [
     "suv",
     "4x4",
-    "grand"
+    "grand",
+    "haute",
+    "tout terrain",
+    "route difficile",
+    "montagne"
 ]
 
+
+# =========================
+# SPORT / RAPIDE
+# =========================
+SPORT_WORDS = [
+    "sport",
+    "sportive",
+    "rapide",
+    "vitesse",
+    "puissante",
+    "performance",
+    "course",
+    "accélération",
+    "moteur puissant"
+]
+
+
+# =========================
+# 2 PERSONNES / COUPLE
+# =========================
+COUPLE_WORDS = [
+    "2 personnes",
+    "couple",
+    "romantique",
+    "deux places",
+    "petite voiture",
+    "duo"
+]
+
+
+# =========================
+# GRAND NOMBRE DE PERSONNES
+# =========================
+GROUP_WORDS = [
+    "7 places",
+    "6 places",
+    "beaucoup de personnes",
+    "grand groupe",
+    "transport",
+    "plusieurs amis",
+    "sortie groupe"
+]
+
+
+# =========================
+# LONG TRAJET
+# =========================
+TRAVEL_WORDS = [
+    "long trajet",
+    "voyage long",
+    "route",
+    "autoroute",
+    "distance",
+    "road trip",
+    "casablanca marrakech"
+]
+
+
+# =========================
+# VILLE
+# =========================
+CITY_WORDS = [
+    "ville",
+    "circulation",
+    "parking",
+    "petite",
+    "compacte",
+    "facile à conduire",
+    "trafic"
+]
+
+
+# =========================
+# ÉCOLOGIQUE
+# =========================
+ECO_WORDS = [
+    "hybride",
+    "électrique",
+    "écologique",
+    "eco",
+    "batterie",
+    "faible consommation"
+]
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -181,7 +297,7 @@ def ai_chat_search(request):
 
             print("MESSAGE USER =", message)
 
-            doc = nlp(message)
+            doc = nlp(message) if nlp else None
 
             cars = Car.objects.all()
 
@@ -207,7 +323,11 @@ def ai_chat_search(request):
                     if car.nb_places and car.nb_places >= 5:
                         score += 5
 
-                    if car.categorie.strip().lower() == "suv":
+                    if (
+                        car.categorie
+                        and
+                        car.categorie.strip().lower() == "suv"
+                    ):
                         score += 5
 
                 # =========================
@@ -234,8 +354,90 @@ def ai_chat_search(request):
 
                 if any(word in message for word in SUV_WORDS):
 
-                    if car.categorie.strip().lower() == "suv":
+                    if (
+                        car.categorie
+                        and
+                        car.categorie.strip().lower() == "suv"
+                    ):
                         score += 5
+
+                # =========================
+                # SPORT DETECTION
+                # =========================
+
+                if any(word in message for word in SPORT_WORDS):
+
+                    if (
+                        car.categorie
+                        and
+                        car.categorie.strip().lower() == "sport"
+                    ):
+                        score += 6
+
+                    if car.prix_par_jour >= 1200:
+                        score += 3
+
+                # =========================
+                # COUPLE DETECTION
+                # =========================
+
+                if any(word in message for word in COUPLE_WORDS):
+
+                    if car.nb_places and car.nb_places <= 2:
+                        score += 5
+
+                # =========================
+                # GROUP DETECTION
+                # =========================
+
+                if any(word in message for word in GROUP_WORDS):
+
+                    if car.nb_places and car.nb_places >= 6:
+                        score += 6
+
+                # =========================
+                # CITY DETECTION
+                # =========================
+
+                if any(word in message for word in CITY_WORDS):
+
+                    if (
+                        car.categorie
+                        and
+                        car.categorie.strip().lower() == "citadine"
+                    ):
+                        score += 5
+
+                # =========================
+                # TRAVEL DETECTION
+                # =========================
+
+                if any(word in message for word in TRAVEL_WORDS):
+
+                    if car.nb_places and car.nb_places >= 4:
+                        score += 3
+
+                    if car.prix_par_jour >= 700:
+                        score += 2
+
+                # =========================
+                # ECO DETECTION
+                # =========================
+
+                if any(word in message for word in ECO_WORDS):
+
+                    if (
+                        car.carburant
+                        and
+                        (
+                            "hybride" in car.carburant.lower()
+                            or
+                            "electrique" in car.carburant.lower()
+                            or
+                            "électrique" in car.carburant.lower()
+                        )
+                    ):
+                        score += 6
 
                 # =========================
                 # AUTOMATIQUE
@@ -264,26 +466,72 @@ def ai_chat_search(request):
                         score += 5
 
                 # =========================
+                # ESSENCE
+                # =========================
+
+                if "essence" in message:
+
+                    if (
+                        car.carburant
+                        and
+                        car.carburant.strip().lower() == "essence"
+                    ):
+                        score += 5
+                # =========================
+                     # BUDGET DETECTION
+                # =========================
+
+                if doc:
+
+                        for token in doc:
+
+                           if token.like_num:
+
+                            try:
+             
+                                        number = int(token.text)
+
+                                            # Si message contient budget/prix/dh
+                                        if (
+                                             "budget" in message
+                                              or
+                                             "dh" in message
+                                              or
+                                             "prix" in message
+                                              or
+                                             "moins" in message
+                                              or
+                                             "max" in message
+                                              ):
+
+                                         if car.prix_par_jour <= number:
+                                              score += 7
+
+                            except:
+                             pass
+                # =========================
                 # NOMBRE DE PLACES
                 # =========================
 
-                for token in doc:
+                if doc:
 
-                    if token.like_num:
+                    for token in doc:
 
-                        try:
+                        if token.like_num:
 
-                            number = int(token.text)
+                            try:
 
-                            if (
-                                car.nb_places
-                                and
-                                car.nb_places >= number
-                            ):
-                                score += 3
+                                number = int(token.text)
 
-                        except:
-                            pass
+                                if (
+                                    car.nb_places
+                                    and
+                                    car.nb_places >= number
+                                ):
+                                    score += 3
+
+                            except:
+                                pass
 
                 print("SCORE =", score)
 

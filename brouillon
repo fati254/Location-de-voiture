@@ -7,13 +7,6 @@ Notification.objects.create(
     message="Merci d'avoir retourné le véhicule à temps."
 )
 
-je peux ajouter pour Paiement sa 
-
-Notification.objects.create(
-    user=request.user,
-    title="Paiement confirmé",
-    message="Votre paiement a été validé avec succès."
-)
 
 --------------------------------------------------------------------------------------------
 
