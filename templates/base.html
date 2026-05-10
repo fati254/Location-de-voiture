@@ -45,14 +45,23 @@ body {
 /* dropdown */
 .dropdown-menu {
     background: #111;
+    border: none;
+    border-radius: 14px;
+    padding: 10px;
 }
 
 .dropdown-item {
     color: #fff;
+    border-radius: 8px;
+    transition: 0.2s;
 }
 
 .dropdown-item:hover {
     background: #222;
+    color: #38bdf8;
+}
+.navbar .btn {
+    font-size: 14px;
 }
 
 /* ================= TITRE SECTION ================= */
@@ -72,7 +81,489 @@ body {
     color: #666;
     font-size: 14px;
 }
+/* =========================
+   ASSISTANT IA
+========================= */
 
+.ai-section {
+
+    background:
+    linear-gradient(
+        135deg,
+        #f8fafc,
+        #eef2ff
+    );
+
+    padding: 100px 0;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+/* TITLE */
+
+.ai-badge {
+
+    background: rgba(56, 189, 248, 0.12);
+
+    color: #0284c7;
+
+    padding: 10px 20px;
+
+    border-radius: 999px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    display: inline-block;
+}
+
+.ai-title {
+
+    font-size: 52px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    line-height: 1.2;
+}
+
+.ai-text {
+
+    color: #64748b;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+/* IMAGE */
+
+.ai-image-container {
+
+    position: relative;
+}
+
+.ai-image {
+
+    border-radius: 28px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.12);
+
+    transition: 0.4s;
+}
+
+.ai-image:hover {
+
+    transform: scale(1.02);
+}
+
+/* FLOATING CARD */
+
+.ai-floating-card {
+
+    position: absolute;
+
+    bottom: 20px;
+
+    left: 20px;
+
+    background: rgba(255,255,255,0.95);
+
+    backdrop-filter: blur(12px);
+
+    border-radius: 20px;
+
+    padding: 18px 22px;
+
+    min-width: 270px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.1);
+}
+
+/* PULSE */
+
+.pulse-dot {
+
+    width: 14px;
+
+    height: 14px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* FEATURES */
+
+.ai-feature-card {
+
+    background: rgba(255,255,255,0.75);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 22px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.06);
+
+    transition: 0.3s;
+}
+
+.ai-feature-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+
+    font-size: 38px;
+
+    margin-bottom: 14px;
+}
+
+.ai-feature-card h6 {
+
+    font-weight: 700;
+
+    color: #111827;
+}
+
+.ai-feature-card p {
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+/* BUTTONS */
+
+.ai-section .btn-info {
+
+    background: #38bdf8;
+
+    border: none;
+
+    transition: 0.3s;
+}
+
+.ai-section .btn-info:hover {
+
+    transform: translateY(-3px);
+
+    background: #0ea5e9;
+}
+
+.ai-section .btn-outline-light {
+
+    border: 2px solid #cbd5e1;
+
+    color: #111827;
+}
+
+.ai-section .btn-outline-light:hover {
+
+    background: #111827;
+
+    color: white;
+}
+
+/* MOBILE */
+
+@media(max-width: 768px) {
+
+    .ai-title {
+
+        font-size: 34px;
+    }
+
+    .ai-floating-card {
+
+        position: relative;
+
+        left: 0;
+
+        bottom: 0;
+
+        margin-top: 20px;
+    }
+}
+/* MINI AI CARDS */
+
+.mini-ai-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    text-align: center;
+
+    height: 100%;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.06);
+
+    transition: 0.3s;
+
+    border: 1px solid #f1f5f9;
+}
+
+.mini-ai-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.1);
+}
+
+.mini-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    background: #f0f9ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+
+    margin-bottom: 18px;
+}
+
+.mini-ai-card h6 {
+
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 10px;
+}
+
+.mini-ai-card p {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 0;
+}
+.mini-ai-card{
+    width: 100%;
+}
+/* ================= RESPONSIVE FIX ================= */
+
+@media (max-width: 992px){
+
+    .ai-section{
+        padding: 60px 15px;
+    }
+
+    .ai-title{
+        font-size: 38px;
+        line-height: 1.3;
+    }
+
+    .ai-text{
+        font-size: 15px;
+    }
+
+    .mini-ai-card{
+        padding: 18px;
+    }
+
+    .ai-floating-card{
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px){
+
+    .ai-section{
+        text-align: center;
+    }
+
+    .ai-title{
+        font-size: 30px;
+    }
+
+    .ai-text{
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .mini-ai-card{
+        margin-bottom: 10px;
+    }
+
+    .mini-icon{
+        width: 55px;
+        height: 55px;
+        font-size: 24px;
+    }
+
+    .ai-image{
+        margin-top: 20px;
+    }
+
+    .d-flex.gap-3.mt-4.flex-wrap{
+        justify-content: center;
+    }
+
+    .ai-floating-card{
+        padding: 15px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 576px){
+
+    .ai-title{
+        font-size: 26px;
+    }
+
+    .ai-badge{
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .mini-ai-card h6{
+        font-size: 15px;
+    }
+
+    .mini-ai-card p{
+        font-size: 13px;
+    }
+
+    .btn-lg{
+        width: 100%;
+    }
+}
+/* ===== FINAL RESPONSIVE FIX ===== */
+
+html,
+body{
+    overflow-x: hidden;
+}
+
+.ai-section{
+    width: 100%;
+}
+
+.ai-image-container{
+    width: 100%;
+}
+
+.ai-image{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.row{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+@media (max-width: 992px){
+
+    .col-lg-6{
+        width: 100%;
+    }
+
+    .ai-floating-card{
+        position: relative;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px){
+
+    .ai-section{
+        padding: 50px 12px;
+    }
+
+    .ai-title{
+        font-size: 28px !important;
+    }
+
+    .mini-ai-card{
+        width: 100%;
+    }
+
+    .btn-lg{
+        width: 100%;
+    }
+}
+
+/* LOGIN BUTTON */
+
+.login-btn {
+
+    border: 2px solid rgba(255,255,255,0.7);
+
+    color: white !important;
+
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+
+    background: white;
+
+    color: black !important;
+
+    border-color: white;
+}
 </style>
 
 </head>
@@ -90,67 +581,156 @@ body {
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="nav">
+     <div class="collapse navbar-collapse" id="nav">
 
-      <ul class="navbar-nav mx-auto">
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Accueil</a>
-        </li>
+    <!-- MENU -->
+    <ul class="navbar-nav mx-auto">
 
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'cars_list' %}">Collection</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'propos' %}">À propos</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'avis' %}">Avis</a>
-        </li>
-
-         <li class="nav-item">
-        <a class="nav-link" href="{% url 'history' %}">Historique</a>
-        </li>
-        <a class="nav-link position-relative"
-            href="{% url 'notifications' %}">
-
-                    Notifications
-
-    {% if unread_notifications_count > 0 %}
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-
-            {{ unread_notifications_count }}
-
-        </span>
-    {% endif %}
-
-</a>
-
-        <li class="nav-item dropdown">
-
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                Profile
+            <a class="nav-link" href="{% url 'home' %}">
+                Accueil
             </a>
-
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="{% url 'reservation_list' %}">Mes réservations</a>
-                <a class="dropdown-item" href="{% url 'reservation_list' %}">Paiement</a>
-
-                <a class="dropdown-item" href="{% url 'profile' %}">Mon Profile</a>
-            </div>
-
         </li>
 
-      </ul>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'cars_list' %}">
+                Collection
+            </a>
+        </li>
 
-    </div>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}#assistantAI">
+                Assistant IA
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'avis' %}">
+                Avis
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- RIGHT SIDE -->
+    <ul class="navbar-nav ms-auto align-items-center">
+
+        {% if user.is_authenticated %}
+
+            <!-- NOTIFICATIONS -->
+            <li class="nav-item me-3">
+
+                <a class="nav-link position-relative"
+                   href="{% url 'notifications' %}">
+
+                    🔔
+
+                    {% if unread_notifications_count > 0 %}
+
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                            {{ unread_notifications_count }}
+
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+            </li>
+
+            <!-- PROFILE -->
+            <li class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle"
+                   data-bs-toggle="dropdown">
+
+                    👤 Profil
+
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end">
+
+                    <a class="dropdown-item"
+                       href="{% url 'profile' %}">
+
+                        Mon profil
+
+                    </a>
+
+                    <a class="dropdown-item"
+                       href="{% url 'reservation_list' %}">
+
+                        Mes réservations
+
+                    </a>
+
+                    <a class="dropdown-item"
+                       href="{% url 'history' %}">
+
+                        Historique
+
+                    </a>
+
+                    <a class="dropdown-item"
+                       href="{% url 'history' %}">
+
+                        Paiements
+
+                    </a>
+
+                    <hr class="dropdown-divider">
+
+                    <a class="dropdown-item text-danger"
+                       href="{% url 'logout' %}">
+
+                        Déconnexion
+
+                    </a>
+
+                </div>
+
+            </li>
+
+        {% else %}
+
+            <!-- LOGIN -->
+            <li class="nav-item me-2">
+
+                <a class="btn btn-outline-light rounded-pill px-4 login-btn"
+                   href="{% url 'login' %}">
+
+                    Connexion
+
+                </a>
+
+            </li>
+
+            <!-- REGISTER -->
+            <li class="nav-item">
+
+                <a class="btn btn-info rounded-pill px-4 text-dark fw-bold"
+                   href="{% url 'register' %}">
+
+                    Inscription
+
+                </a>
+
+            </li>
+
+        {% endif %}
+
+    </ul>
+
+</div>
   </div>
+  
 </nav>
 
 {% block content %}{% endblock %}
@@ -162,6 +742,42 @@ window.addEventListener("scroll", function () {
     document.querySelector(".custom-navbar")
     .classList.toggle("scrolled", window.scrollY > 50);
 });
+function openAIChat() {
+
+    const chatButton = document.querySelector('.chat-toggle');
+
+    if (chatButton) {
+        chatButton.click();
+    }
+}
+
+
+function scrollToAIChat() {
+
+    const chatButton =
+    document.getElementById("ai-chat-button");
+
+    if(chatButton){
+
+        chatButton.click();
+
+        setTimeout(() => {
+
+            const input =
+            document.getElementById("chat-input");
+
+            if(input){
+
+                input.focus();
+
+            }
+
+        }, 300);
+    }
+}
+
+
+
 </script>
 
 {% load static %}

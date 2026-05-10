@@ -18,7 +18,9 @@ class Profile(models.Model):
 
     cin = models.CharField(
         max_length=20,
-        unique=True
+        unique=True,
+        null=True,
+        blank=True
     )
 
     phone = models.CharField(
