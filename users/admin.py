@@ -1,13 +1,13 @@
 from django.contrib import admin
 from .models import Profile
 
+
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
 
     list_display = (
         'user',
         'cin',
-        'phone',
         'license_status',
         'trust_score',
         'created_at'
@@ -20,5 +20,6 @@ class ProfileAdmin(admin.ModelAdmin):
 
     list_filter = (
         'license_status',
-        'trust_score',
+        'trust_score'
     )
+    

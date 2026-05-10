@@ -11,6 +11,20 @@ class Reservation(models.Model):
     is_validated = models.BooleanField(default=False)
     contract_generated = models.BooleanField(default=False) #contrat apres paiement
 
+    
+    def number_of_days(self):
+
+        return (
+            self.date_fin - self.date_debut
+        ).days
+
+    def total_price(self):
+
+        return (
+            self.number_of_days()
+            * self.car.prix_par_jour
+        )
+
     def __str__(self):
         return f"{self.user} - {self.car}"
     

@@ -10,6 +10,6 @@ urlpatterns = [
     path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('upload-permis/',views.upload_permis,name='upload_permis'),
     path('upload-permis/',views.upload_permis,name='upload_permis'),
-
+    path('payments/',views.payment_history,name='payment_history'),
 
 ]

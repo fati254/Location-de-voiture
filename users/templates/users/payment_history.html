@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Historique Paiements
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- HEADER -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+
+                Historique des Paiements
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Tous vos paiements et réservations effectués.
+
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'profile' %}"
+            class="btn btn-outline-dark rounded-3"
+        >
+
+            <i class="fas fa-arrow-left me-2"></i>
+
+            Retour Profil
+
+        </a>
+
+    </div>
+
+    <!-- SUMMARY -->
+
+    <div class="row mb-4">
+
+        <!-- TOTAL PAYED -->
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card border-0 shadow rounded-4 h-100">
+
+                <div class="card-body p-4">
+
+                    <h6 class="text-muted">
+
+                        Total Payé
+
+                    </h6>
+
+                    <h2 class="fw-bold text-success">
+
+                        {{ total_paid }} DH
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TOTAL RESERVATIONS -->
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card border-0 shadow rounded-4 h-100">
+
+                <div class="card-body p-4">
+
+                    <h6 class="text-muted">
+
+                        Réservations Payées
+
+                    </h6>
+
+                    <h2 class="fw-bold">
+
+                        {{ reservations.count }}
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- LAST PAYMENT -->
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card border-0 shadow rounded-4 h-100">
+
+                <div class="card-body p-4">
+
+                    <h6 class="text-muted">
+
+                        Dernier Paiement
+
+                    </h6>
+
+                    {% if last_payment %}
+
+                        <h2 class="fw-bold">
+
+                            {{ last_payment.amount }} DH
+
+                        </h2>
+
+                    {% else %}
+
+                        <h5 class="fw-bold text-muted">
+
+                            Aucun
+
+                        </h5>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="card border-0 shadow rounded-4">
+
+        <div class="card-body p-4">
+
+            <div class="table-responsive">
+
+                <table class="table align-middle table-hover">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Véhicule</th>
+                            <th>Image</th>
+                            <th>Date Début</th>
+                            <th>Date Fin</th>
+                            <th>Nombre Jours</th>
+                            <th>Montant</th>
+                            <th>Statut</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for reservation in reservations %}
+
+                        <tr>
+
+                            <!-- CAR -->
+
+                            <td>
+
+                                <div class="fw-bold">
+
+                                    {{ reservation.car.marque }}
+                                    {{ reservation.car.modele }}
+
+                                </div>
+
+                            </td>
+
+                            <!-- IMAGE -->
+
+                            <td>
+
+                                {% if reservation.car.image %}
+
+                                    <img
+                                        src="{{ reservation.car.image.url }}"
+                                        width="90"
+                                        class="rounded-3 shadow-sm"
+                                    >
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        Pas d'image
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- START -->
+
+                            <td>
+
+                                {{ reservation.date_debut }}
+
+                            </td>
+
+                            <!-- END -->
+
+                            <td>
+
+                                {{ reservation.date_fin }}
+
+                            </td>
+
+                            <!-- DAYS -->
+
+                            <td>
+
+                                {{ reservation.number_of_days }} jours
+
+                            </td>
+
+                            <!-- PRICE -->
+
+                            <td>
+
+                                <span class="fw-bold text-success">
+
+                                    {{ reservation.payment.amount }} DH
+
+                                </span>
+
+                            </td>
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if reservation.payment.status == 'paid' %}
+
+                                    <span class="badge bg-success">
+
+                                        Payé
+
+                                    </span>
+
+                                {% elif reservation.payment.status == 'pending' %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        En attente
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger">
+
+                                        Annulé
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="7" class="text-center py-5">
+
+                                <i class="fas fa-credit-card fa-3x text-muted mb-3"></i>
+
+                                <h5 class="fw-bold">
+
+                                    Aucun paiement disponible
+
+                                </h5>
+
+                                <p class="text-muted mb-0">
+
+                                    Vos paiements apparaîtront ici.
+
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

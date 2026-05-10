@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from reservations.models import Reservation
+from reservations.models import Reservation , Payment
 from .forms import LoginForm, RegisterForm
 from .models import Profile 
 from .forms import ProfileForm , PermisVerificationForm
+
 
 def user_list(request):
     users = User.objects.all()
@@ -94,14 +95,61 @@ def profile_view(request):
         user=request.user
     )
 
+    payments = Payment.objects.filter(
+        reservation__user=request.user,
+        status='paid'
+    )
+
+    total_paid = sum(
+        payment.amount for payment in payments
+    )
+
+    last_payment = payments.order_by(
+        '-created_at'
+    ).first()
+
     return render(
         request,
         'users/profile.html',
         {
             'profile': profile,
             'reservations': reservations,
+            'payments': payments,
+            'total_paid': total_paid,
+            'last_payment': last_payment,
         }
     )
+
+
+@login_required
+def payment_history(request):
+
+    reservations = Reservation.objects.filter(
+        user=request.user,
+        payment__status='paid'
+    )
+
+    payments = Payment.objects.filter(
+        reservation__user=request.user,
+        status='paid'
+    )
+
+    total_paid = sum(
+        payment.amount for payment in payments
+    )
+
+    last_payment = payments.last()
+
+    return render(
+        request,
+        'users/payment_history.html',
+        {
+            'reservations': reservations,
+            'total_paid': total_paid,
+            'last_payment': last_payment,
+        }
+    )
+
 
 @login_required
 def edit_profile(request):

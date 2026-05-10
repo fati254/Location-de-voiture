@@ -266,124 +266,392 @@ Mon Profil
                 </div>
 
             </div>
-
             <!-- RESERVATIONS -->
 
-            <div id="reservations" class="card border-0 shadow rounded-4 mb-4">
+<div id="reservations" class="card border-0 shadow rounded-4 mb-4">
 
-                <div class="card-body p-4">
+    <div class="card-body p-4">
 
-                    <h4 class="fw-bold mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
-                        Mes Réservations
+            <h4 class="fw-bold mb-0">
 
-                    </h4>
+                Mes Réservations
 
-                    <div class="table-responsive">
+            </h4>
 
-                        <table class="table align-middle">
+            <span class="badge bg-dark px-3 py-2">
 
-                            <thead>
+                {{ reservations.count }} réservation(s)
 
-                                <tr>
+            </span>
 
-                                    <th>Voiture</th>
-                                    <th>Date début</th>
-                                    <th>Date fin</th>
-                                    <th>Prix</th>
-                                    <th>Statut</th>
+        </div>
 
-                                </tr>
+        {% if reservations %}
 
-                            </thead>
+            <div class="table-responsive">
 
-                            <tbody>
+                <table class="table align-middle table-hover">
 
-                                {% for reservation in reservations %}
+                    <thead class="table-light">
 
-                                <tr>
+                        <tr>
 
-                                    <td>
+                            <th>Voiture</th>
+                            <th>Image</th>
+                            <th>Date début</th>
+                            <th>Date fin</th>
+                            <th>Durée</th>
+                            <th>Prix</th>
+                            <th>Statut</th>
 
-                                        {{ reservation.car }}
+                        </tr>
 
-                                    </td>
+                    </thead>
 
-                                    <td>
+                    <tbody>
 
-                                        {{ reservation.start_date }}
+                        {% for reservation in reservations %}
 
-                                    </td>
+                        <tr>
 
-                                    <td>
+                            <!-- CAR NAME -->
 
-                                        {{ reservation.end_date }}
+                            <td>
 
-                                    </td>
+                                <div class="fw-bold">
 
-                                    <td>
+                                    {{ reservation.car.marque }}
 
-                                        {{ reservation.total_price }} DH
+                                    {{ reservation.car.modele }}
 
-                                    </td>
+                                </div>
 
-                                    <td>
+                            </td>
 
-                                        <span class="badge bg-success">
+                            <!-- CAR IMAGE -->
 
-                                            {{ reservation.status }}
+                            <td>
 
-                                        </span>
+                                {% if reservation.car.image %}
 
-                                    </td>
+                                    <img
+                                        src="{{ reservation.car.image.url }}"
+                                        width="90"
+                                        class="rounded-3 shadow-sm"
+                                    >
 
-                                </tr>
+                                {% else %}
 
-                                {% empty %}
+                                    <span class="text-muted">
 
-                                <tr>
+                                        Pas d'image
 
-                                    <td colspan="5" class="text-center text-muted">
+                                    </span>
 
-                                        Aucune réservation
+                                {% endif %}
 
-                                    </td>
+                            </td>
 
-                                </tr>
+                            <!-- START DATE -->
 
-                                {% endfor %}
+                            <td>
 
-                            </tbody>
+                                {{ reservation.date_debut }}
 
-                        </table>
+                            </td>
+
+                            <!-- END DATE -->
+
+                            <td>
+
+                                {{ reservation.date_fin }}
+
+                            </td>
+
+                            <!-- DURATION -->
+
+                            <td>
+
+                                {{ reservation.number_of_days }} jours
+
+                            </td>
+
+                            <!-- PRICE -->
+
+                            <td>
+
+                                <span class="fw-bold text-success">
+
+                                    {{ reservation.total_price }} DH
+
+                                </span>
+
+                            </td>
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if reservation.status == 'confirmed' %}
+
+                                    <span class="badge bg-success">
+
+                                        Confirmée
+
+                                    </span>
+
+                                {% elif reservation.status == 'pending' %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        En attente
+
+                                    </span>
+
+                                {% elif reservation.status == 'cancelled' %}
+
+                                    <span class="badge bg-danger">
+
+                                        Annulée
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {% if reservation.is_validated %}
+
+    <span class="badge bg-success">
+        Confirmée
+    </span>
+
+{% else %}
+
+    <span class="badge bg-warning text-dark">
+        En attente
+    </span>
+
+{% endif %}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="fas fa-car-side fa-3x text-muted mb-3"></i>
+
+                <h5 class="fw-bold">
+
+                    Aucune réservation trouvée
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Vous n'avez pas encore effectué de réservation.
+
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+     <!-- PAYMENTS -->
+
+<div id="payments" class="card border-0 shadow rounded-4 mb-4">
+
+    <div class="card-body p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h4 class="fw-bold mb-0">
+
+                Paiements
+
+            </h4>
+
+            <span class="badge bg-dark px-3 py-2">
+
+                Résumé Financier
+
+            </span>
+
+        </div>
+
+        <!-- PAYMENT CARDS -->
+
+        <div class="row">
+
+            <!-- TOTAL PAYED -->
+
+            <div class="col-md-4 mb-4">
+
+                <div class="border rounded-4 p-4 h-100 bg-light">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Total payé
+
+                            </h6>
+
+                            <h3 class="fw-bold">
+
+                                {{ total_paid }} DH
+
+                            </h3>
+
+                        </div>
+
+                        <i class="fas fa-wallet fa-2x text-success"></i>
 
                     </div>
+
+                    <p class="text-muted mb-0">
+
+                        Montant total des paiements effectués.
+
+                    </p>
 
                 </div>
 
             </div>
 
-            <!-- PAYMENTS -->
+            <!-- LAST PAYMENT -->
 
-            <div id="payments" class="card border-0 shadow rounded-4 mb-4">
+            <div class="col-md-4 mb-4">
 
-                <div class="card-body p-4">
+                <div class="border rounded-4 p-4 h-100 bg-light">
 
-                    <h4 class="fw-bold mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
 
-                        Paiements
+                        <div>
 
-                    </h4>
+                            <h6 class="text-muted">
 
-                    <div class="alert alert-light border">
+                                Dernier paiement
 
-                        Aucun paiement disponible pour le moment.
+                            </h6>
+
+                            {% if last_payment %}
+
+                                <h5 class="fw-bold">
+
+                                    {{ last_payment.amount }} DH
+
+                                </h5>
+
+                            {% else %}
+
+                                <h5 class="fw-bold text-muted">
+
+                                    Aucun
+
+                                </h5>
+
+                            {% endif %}
+
+                        </div>
+
+                        <i class="fas fa-check-circle fa-2x text-success"></i>
 
                     </div>
+
+                    <p class="text-muted mb-0">
+
+                        Dernière transaction effectuée.
+
+                    </p>
 
                 </div>
 
             </div>
+
+            <!-- PAYMENT STATUS -->
+
+            <div class="col-md-4 mb-4">
+
+                <div class="border rounded-4 p-4 h-100 bg-light">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Statut Global
+
+                            </h6>
+
+                            <h5 class="fw-bold text-success">
+
+                                Paiements OK
+
+                            </h5>
+
+                        </div>
+
+                        <i class="fas fa-credit-card fa-2x text-primary"></i>
+
+                    </div>
+
+                    <p class="text-muted mb-0">
+
+                        Historique financier sécurisé.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <div class="text-center mt-4">
+
+            <a
+                href="{% url 'payment_history' %}"
+                class="btn btn-dark px-4 py-2 rounded-3"
+            >
+
+                <i class="fas fa-receipt me-2"></i>
+
+                Voir Historique des Paiements
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
 
             <!-- LICENSE -->
 
@@ -488,38 +756,107 @@ Mon Profil
 
             <!-- TRUST SCORE -->
 
-            <div id="score" class="card border-0 shadow rounded-4 mb-4">
+            <!-- TRUST SCORE -->
 
-                <div class="card-body p-4">
+<div id="score" class="card border-0 shadow rounded-4 mb-4">
 
-                    <h4 class="fw-bold mb-4">
+    <div class="card-body p-4">
 
-                        Score de Confiance
+        <h4 class="fw-bold mb-4">
 
-                    </h4>
+            Score de Confiance
 
-                    <div class="progress mb-3" style="height: 25px;">
+        </h4>
 
-                        <div
-                            class="progress-bar bg-dark"
-                            style="width: {{ profile.trust_score }}%;"
-                        >
+        <!-- SCORE NUMBER -->
 
-                            {{ profile.trust_score }}/100
+        <div class="d-flex justify-content-between align-items-center mb-2">
 
-                        </div>
+            <h2 class="fw-bold mb-0">
 
-                    </div>
+                {{ profile.trust_score }}/100
 
-                    <p class="text-muted mb-0">
+            </h2>
 
-                        Votre score augmente lorsque vous rendez les voitures à temps et effectuez vos paiements correctement.
+            {% if profile.trust_score >= 80 %}
 
-                    </p>
+                <span class="badge bg-success px-3 py-2">
+                    Excellent
+                </span>
 
-                </div>
+            {% elif profile.trust_score >= 50 %}
+
+                <span class="badge bg-warning text-dark px-3 py-2">
+                    Moyen
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-danger px-3 py-2">
+                    Faible
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        <!-- PROGRESS BAR -->
+
+        <div class="progress mb-3" style="height: 28px;">
+
+            <div
+                class="progress-bar
+                {% if profile.trust_score >= 80 %}
+                    bg-success
+                {% elif profile.trust_score >= 50 %}
+                    bg-warning
+                {% else %}
+                    bg-danger
+                {% endif %}"
+                style="width: {{ profile.trust_score }}%;"
+            >
+
+                {{ profile.trust_score }}%
 
             </div>
+
+        </div>
+
+        <!-- DESCRIPTION -->
+
+        <div class="alert alert-light border rounded-4">
+
+            <p class="mb-2">
+
+                Ce score est géré par l’administrateur selon :
+
+            </p>
+
+            <ul class="mb-0">
+
+                <li>
+                    Paiements effectués correctement
+                </li>
+
+                <li>
+                    Respect des réservations
+                </li>
+
+                <li>
+                    État du véhicule après retour
+                </li>
+
+                <li>
+                    Vérification du permis
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
 
             <!-- HISTORY -->
 
@@ -555,25 +892,36 @@ Mon Profil
 
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                     <div class="col-md-4 mb-3">
 
-                            <div class="border rounded-4 p-4">
+    <div class="border rounded-4 p-4">
 
-                                <h3 class="fw-bold">
+        <h3 class="fw-bold">
 
-                                    0
+            {{ total_paid }} DH
 
-                                </h3>
+        </h3>
 
-                                <p class="text-muted mb-0">
+        <p class="text-muted mb-0">
 
-                                    Paiements
+            Total Paiements
 
-                                </p>
+        </p>
 
-                            </div>
+        {% if last_payment %}
 
-                        </div>
+            <small class="text-muted">
+
+                Dernier :
+                {{ last_payment.amount }} DH
+
+            </small>
+
+        {% endif %}
+
+    </div>
+
+</div>
 
                         <div class="col-md-4 mb-3">
 

@@ -291,3 +291,11 @@ def calculate_penalty(reservation):
         return delay_days, penalty
 
     return 0, 0
+
+@property
+def number_of_days(self):
+
+    return (
+        self.date_fin - self.date_debut
+    ).days
+
