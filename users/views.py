@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from reservations.models import Reservation
 from .forms import LoginForm, RegisterForm
 from .models import Profile 
-from .forms import ProfileForm
+from .forms import ProfileForm , PermisVerificationForm
 
 def user_list(request):
     users = User.objects.all()
@@ -136,4 +136,37 @@ def edit_profile(request):
         {
             'form': form
         }
+    )
+
+@login_required
+def upload_permis(request):
+
+    profile = request.user.profile
+
+    if request.method == 'POST':
+
+        form = PermisVerificationForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
+
+        if form.is_valid():
+
+            profile.verification_status = 'pending'
+
+            form.save()
+
+            return redirect('profile')
+
+    else:
+
+        form = PermisVerificationForm(
+            instance=profile
+        )
+
+    return render(
+        request,
+        'users/upload_permis.html',
+        {'form': form}
     )

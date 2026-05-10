@@ -8,6 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'user',
         'cin',
         'phone',
+        'license_status',
         'trust_score',
         'created_at'
     )
@@ -18,5 +19,6 @@ class ProfileAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
+        'license_status',
         'trust_score',
     )

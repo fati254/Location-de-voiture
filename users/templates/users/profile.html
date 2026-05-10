@@ -387,60 +387,104 @@ Mon Profil
 
             <!-- LICENSE -->
 
-            <div id="license" class="card border-0 shadow rounded-4 mb-4">
+<div id="license" class="card border-0 shadow rounded-4 mb-4">
 
-                <div class="card-body p-4">
+    <div class="card-body p-4">
 
-                    <h4 class="fw-bold mb-4">
+        <h4 class="fw-bold mb-4">
+            Permis de Conduire
+        </h4>
 
-                        Permis de Conduire
+        <form method="POST" enctype="multipart/form-data">
 
-                    </h4>
+            {% csrf_token %}
 
-                    <div class="row align-items-center">
+            <div class="row">
 
-                        <div class="col-md-4">
+                <!-- RECTO -->
+                <div class="col-md-6 mb-4">
 
-                            {% if profile.driver_license %}
+                    <label class="form-label fw-bold">
+                        Permis Recto
+                    </label>
 
-                                <img
-                                    src="{{ profile.driver_license.url }}"
-                                    class="img-fluid rounded-3 shadow-sm"
-                                >
+                    {{ form.permis_recto }}
 
-                            {% else %}
+                    {% if profile.permis_recto %}
 
-                                <div class="alert alert-warning">
+                        <img
+                            src="{{ profile.permis_recto.url }}"
+                            class="img-fluid rounded-3 shadow-sm mt-3"
+                        >
 
-                                    Aucun permis uploadé
+                    {% endif %}
 
-                                </div>
+                </div>
 
-                            {% endif %}
+                <!-- VERSO -->
+                <div class="col-md-6 mb-4">
 
-                        </div>
+                    <label class="form-label fw-bold">
+                        Permis Verso
+                    </label>
 
-                        <div class="col-md-8">
+                    {{ form.permis_verso }}
 
-                            <h6>
+                    {% if profile.permis_verso %}
 
-                                Statut :
+                        <img
+                            src="{{ profile.permis_verso.url }}"
+                            class="img-fluid rounded-3 shadow-sm mt-3"
+                        >
 
-                                <span class="badge bg-success">
-
-                                    Validé
-
-                                </span>
-
-                            </h6>
-
-                        </div>
-
-                    </div>
+                    {% endif %}
 
                 </div>
 
             </div>
+
+            <!-- STATUS -->
+
+            <div class="mb-4">
+
+                <h6>
+                    Statut :
+                </h6>
+
+                {% if profile.license_status == 'pending' %}
+
+                    <span class="badge bg-warning text-dark">
+                        En attente de vérification
+                    </span>
+
+                {% elif profile.license_status == 'verified' %}
+
+                    <span class="badge bg-success">
+                        Permis vérifié
+                    </span>
+
+                {% elif profile.license_status == 'rejected' %}
+
+                    <span class="badge bg-danger">
+                        Permis refusé
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+<a href="{% url 'upload_permis' %}"
+   class="btn btn-dark mt-3">
+
+    Upload Permis
+
+</a>
+
+        </form>
+
+    </div>
+
+</div>
 
             <!-- TRUST SCORE -->
 
