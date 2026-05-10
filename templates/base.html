@@ -117,17 +117,31 @@ body {
          <li class="nav-item">
         <a class="nav-link" href="{% url 'history' %}">Historique</a>
         </li>
+        <a class="nav-link position-relative"
+            href="{% url 'notifications' %}">
+
+                    Notifications
+
+    {% if unread_notifications_count > 0 %}
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+            {{ unread_notifications_count }}
+
+        </span>
+    {% endif %}
+
+</a>
 
         <li class="nav-item dropdown">
 
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                Profil
+                Profile
             </a>
 
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'reservation_list' %}">Mes réservations</a>
                 <a class="dropdown-item" href="{% url 'reservation_list' %}">Paiement</a>
-                <a class="dropdown-item" href="#">Notifications</a>
+                <a class="dropdown-item" href="{% url 'notifications' %}">Notifications</a>
                 <a class="dropdown-item" href="{% url 'profile' %}">Mon Profile</a>
             </div>
 

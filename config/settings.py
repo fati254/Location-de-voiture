@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cars.context_processors.notifications_count',
             ],
         },
     },
@@ -110,6 +111,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #  AUTH (IMPORTANT FIX PROPRE)
-LOGIN_URL = '/admin/login/'
+#LOGIN_URL = '/admin/login/'
 LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_REDIRECT_URL = '/admin/login/'
+LOGIN_URL = '/users/login/'

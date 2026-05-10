@@ -1,9 +1,10 @@
 
-from .models import Car , Review  
+from .models import Car , Review   , Notification
 from django.views.generic import ListView 
-from django.shortcuts import render , get_object_or_404
+from django.shortcuts import render , get_object_or_404 , redirect
 from reservations.models import Reservation
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 import json
 import re
@@ -356,4 +357,34 @@ def ai_chat_search(request):
     })
 
 
+@login_required
+def notifications(request):
 
+    new_notifications = Notification.objects.filter(
+        user=request.user,
+        is_read=False
+    ).order_by('-created_at')
+
+    old_notifications = Notification.objects.filter(
+        user=request.user,
+        is_read=True
+    ).order_by('-created_at')
+
+    return render(request, 'cars/notifications.html', {
+        'new_notifications': new_notifications,
+        'old_notifications': old_notifications
+    })
+
+@login_required
+def mark_notification_read(request, notification_id):
+
+    notification = get_object_or_404(
+        Notification,
+        id=notification_id,
+        user=request.user
+    )
+
+    notification.is_read = True
+    notification.save()
+
+    return redirect('notifications')

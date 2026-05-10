@@ -12,7 +12,7 @@ import os
 from django.conf import settings
 
 from .models import Reservation, Payment
-from cars.models import Car
+from cars.models import Car , Notification
 
 from django.contrib import messages
 
@@ -24,7 +24,7 @@ from datetime import date
 @login_required
 def reservation_list(request):
     reservations = Reservation.objects.filter(user=request.user)
-
+    
     return render(request, 'reservations/list.html', {
         'reservations': reservations
     })
@@ -47,6 +47,11 @@ def create_reservation(request, car_id):
             date_debut=date_debut,
             date_fin=date_fin,
             is_validated=True
+        )
+        Notification.objects.create(
+            user=request.user,
+            title="Réservation confirmée",
+            message=f"Votre réservation pour {car.marque} {car.modele} a été effectuée avec succès."
         )
 
         Payment.objects.create(
@@ -216,6 +221,11 @@ def payment_page(request, reservation_id):
         if action == "pay":
             payment.status = "paid"
             payment.save()
+            Notification.objects.create(
+              user=request.user,
+              title="Paiement confirmé",
+              message=f"Le paiement de votre réservation pour {reservation.car.marque} {reservation.car.modele} a été effectué avec succès."
+     )
 
             return redirect("payment_success", reservation_id=reservation.id)
 
@@ -223,6 +233,11 @@ def payment_page(request, reservation_id):
         elif action == "cancel":
             payment.status = "cancelled"
             payment.save()
+            Notification.objects.create(
+             user=request.user,
+             title="Réservation annulée",
+             message=f"Votre réservation pour {reservation.car.marque} {reservation.car.modele} a été annulée."
+)
 
             return redirect("cars_list")
 
